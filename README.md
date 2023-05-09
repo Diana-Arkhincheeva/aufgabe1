@@ -102,7 +102,7 @@ impl<T> SyntaxTree<T> {
     pub fn find_node_mut(
         &mut self,
         predicate: fn(&SyntaxTree<T>) -> bool,
-    ) -> Option<&SyntaxTree<T>> {
+    ) -> Option<&mut SyntaxTree<T>> {
         todo!()
     }
 }

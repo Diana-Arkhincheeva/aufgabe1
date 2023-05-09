@@ -76,7 +76,7 @@ impl<T> SyntaxTree<T> {
     pub fn find_node_mut(
         &mut self,
         predicate: fn(&SyntaxTree<T>) -> bool,
-    ) -> Option<&SyntaxTree<T>> {
+    ) -> Option<&mut SyntaxTree<T>> {
         todo!()
     }
 
@@ -214,6 +214,23 @@ mod tests {
 
         assert!(tree.find_node(|n| n.value == 0).is_some());
         let left = tree.find_node(|n| n.value == 1).unwrap();
+        assert!(left.find_node(|n| n.value == 10).is_some());
+        assert!(left.find_node(|n| n.value == 20).is_some());
+
+        let right = tree.find_node(|n| n.value == 2).unwrap();
+        assert!(right.find_node(|n| n.value == 10).is_some());
+        assert!(right.find_node(|n| n.value == 20).is_some());
+        Ok(())
+    }
+
+    #[test]
+    fn find_node_mut_by_value() -> Result<(), String> {
+        let mut tree = fill_tree_numbers();
+
+        assert!(tree.find_node_mut(|n| n.value == 0).is_some());
+        let left = tree.find_node_mut(|n| n.value == 1).unwrap();
+        left.value = 2;
+        println!("tree in test: {left}");
         assert!(left.find_node(|n| n.value == 10).is_some());
         assert!(left.find_node(|n| n.value == 20).is_some());
 
